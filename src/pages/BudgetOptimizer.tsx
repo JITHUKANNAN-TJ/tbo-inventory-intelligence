@@ -77,7 +77,7 @@ export function BudgetOptimizerPage() {
   return (
     <div>
       <PageHeader
-        eyebrow="Budget optimizer"
+        eyebrow="Budget optimization"
         title="Allocate a limited budget"
         description="Set the budget and constraints, then compare the proposed allocation with the current baseline. The optimizer recommends; it never purchases."
         actions={
@@ -272,6 +272,37 @@ export function BudgetOptimizerPage() {
             <p className="mt-2 rounded-md bg-canvas px-2.5 py-2 font-mono text-2xs text-ink-muted">
               EV = p × margin − (1 − p) × unsold loss
             </p>
+          </Card>
+
+          <Card>
+            <CardHeader title="Risk scenarios" description="Best, expected and worst case for the current allocation" />
+            <div className="space-y-2.5 px-5 py-4 text-xs">
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-ink-muted">Best case (all units sell)</span>
+                <span className="font-semibold text-ok">{fmt(optimizer.expectedContribution + optimizer.downside)}</span>
+              </div>
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-ink-muted">Expected case (probability-weighted)</span>
+                <span className="font-semibold text-ink">{fmt(optimizer.expectedContribution)}</span>
+              </div>
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-ink-muted">Worst case (nothing sells)</span>
+                <span className="font-semibold text-bad">-{fmt(optimizer.downside)}</span>
+              </div>
+              <div className="border-t border-line pt-2.5">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-ink-muted">Committed spend at risk</span>
+                  <span className="font-medium text-ink">{fmt(optimizer.allocated)}</span>
+                </div>
+                <div className="mt-1 flex items-center justify-between gap-2">
+                  <span className="text-ink-muted">Reserve held back</span>
+                  <span className="font-medium text-ink">{fmt(optimizer.reserve)}</span>
+                </div>
+              </div>
+              <p className="pt-1 text-2xs leading-relaxed text-ink-muted">
+                Scenario spread reflects sell probabilities (0.95 / 0.70 / 0.38) by tranche. Tighten the risk profile to shrink the worst case.
+              </p>
+            </div>
           </Card>
         </div>
 

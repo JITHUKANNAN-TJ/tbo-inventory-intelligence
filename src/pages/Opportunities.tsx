@@ -81,7 +81,7 @@ export function OpportunitiesPage() {
   return (
     <div>
       <PageHeader
-        eyebrow="Opportunities"
+        eyebrow="Inventory opportunities"
         title="Where availability may fall short"
         description="Forecast demand compared with reliable bookable supply. Open a row to review supplier options and record a decision."
         actions={

@@ -349,6 +349,53 @@ export function OpportunityDetailPage({ id }: { id?: string }) {
 
         <div className="space-y-4">
           <Card>
+            <CardHeader title="Pricing & purchase timing" description="Recommended sell price and when to commit" />
+            <div className="space-y-3 px-5 py-4 text-xs">
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-ink-muted">Supplier cost / unit</span>
+                <span className="font-medium text-ink">{fmt(opportunity.bestUnitCost, false)}</span>
+              </div>
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-ink-muted">Recommended sell price</span>
+                <span className="font-semibold text-ok">{fmt(Math.round(opportunity.bestUnitCost * 1.22), false)}</span>
+              </div>
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-ink-muted">Target margin</span>
+                <span className="font-medium text-ink">~22% over cost</span>
+              </div>
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-ink-muted">Price band</span>
+                <span className="font-medium text-ink">
+                  {fmt(Math.round(opportunity.bestUnitCost * 1.15), false)} – {fmt(Math.round(opportunity.bestUnitCost * 1.32), false)}
+                </span>
+              </div>
+              <div className="border-t border-line pt-3">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-ink-muted">Buy-by date</span>
+                  <span className="font-medium text-ink">
+                    {(() => {
+                      const d = new Date(`${opportunity.weekStart}T00:00:00Z`)
+                      d.setUTCDate(d.getUTCDate() - category.leadDays)
+                      return d.toISOString().slice(0, 10)
+                    })()}
+                  </span>
+                </div>
+                <div className="mt-1 flex items-center justify-between gap-2">
+                  <span className="text-ink-muted">Lead time</span>
+                  <span className="font-medium text-ink">{category.leadDays} days</span>
+                </div>
+                <div className="mt-1 flex items-center justify-between gap-2">
+                  <span className="text-ink-muted">Release window</span>
+                  <span className="font-medium text-ink">{opportunity.quotes[0]?.releaseDays ?? 21} days</span>
+                </div>
+              </div>
+              <p className="pt-1 text-2xs leading-relaxed text-ink-muted">
+                Commit before the buy-by date to protect the rate; release unsold units inside the release window to limit downside.
+              </p>
+            </div>
+          </Card>
+
+          <Card>
             <CardHeader title="Risk" description="What could go wrong if demand is lower than expected" />
             <div className="space-y-4 px-5 py-4">
               <div>

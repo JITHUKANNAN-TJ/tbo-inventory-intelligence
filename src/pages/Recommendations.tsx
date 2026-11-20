@@ -137,7 +137,7 @@ export function RecommendationsPage() {
   return (
     <div>
       <PageHeader
-        eyebrow="Recommendations"
+        eyebrow="Procurement decisions"
         title="Review and record decisions"
         description="Every procurement recommendation needs a human decision. Approvals capture the user, time and rationale for audit."
         actions={

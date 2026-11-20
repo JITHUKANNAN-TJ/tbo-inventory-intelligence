@@ -65,7 +65,7 @@ export function OverviewPage() {
   return (
     <div>
       <PageHeader
-        eyebrow="Overview"
+        eyebrow="Demand & availability"
         title="Inventory planning"
         description="A clear view of demand, availability and procurement decisions for the planning horizon."
         actions={
@@ -192,6 +192,65 @@ export function OverviewPage() {
           </div>
         </Card>
       </div>
+
+      <Card className="mt-4">
+        <CardHeader
+          title="Pre-buy plan"
+          description="Recommended inventory to commit ahead of demand, with quantities and timing"
+          action={
+            <Button variant="secondary" size="sm" onClick={() => navigate('/optimizer')}>
+              Adjust budget
+            </Button>
+          }
+        />
+        <TableWrap>
+          <thead>
+            <tr>
+              <Th>Destination · product</Th>
+              <Th>Suggested action</Th>
+              <Th align="right">Quantity</Th>
+              <Th align="right">Committed spend</Th>
+              <Th align="right">Buy by</Th>
+              <Th align="right">Expected contribution</Th>
+            </tr>
+          </thead>
+          <tbody>
+            {recommendations
+              .filter((rec) => rec.kind === 'commitment')
+              .sort((a, b) => b.expectedContribution - a.expectedContribution)
+              .slice(0, 6)
+              .map((rec, index) => {
+                const opportunity = opportunities.find((item) => item.id === rec.opportunityId)
+                const supplier = dataset.suppliers.find((item) => item.id === rec.supplierId)
+                const buyBy = opportunity
+                  ? new Date(new Date(`${opportunity.weekStart}T00:00:00Z`).getTime() - 24 * 86400000).toISOString().slice(0, 10)
+                  : '—'
+                return (
+                  <tr key={rec.id} className="data-row">
+                    <Td>
+                      <span className="font-medium text-ink">{opportunity ? opportunityLabel(opportunity) : rec.id}</span>
+                      <span className="block text-2xs text-ink-muted">{supplier?.name ?? rec.supplierId}</span>
+                    </Td>
+                    <Td>
+                      <ActionBadge action={rec.action} />
+                    </Td>
+                    <Td align="right">{rec.quantity.toLocaleString('en-IN')}</Td>
+                    <Td align="right">{fmt(rec.totalCost)}</Td>
+                    <Td align="right">{buyBy}</Td>
+                    <Td align="right">{fmt(rec.expectedContribution)}</Td>
+                  </tr>
+                )
+              })}
+            {recommendations.filter((rec) => rec.kind === 'commitment').length === 0 ? (
+              <tr>
+                <td colSpan={6} className="px-4 py-6 text-center text-xs text-ink-muted">
+                  Run the optimizer to generate a pre-buy plan.
+                </td>
+              </tr>
+            ) : null}
+          </tbody>
+        </TableWrap>
+      </Card>
 
       <Card className="mt-4">
         <CardHeader

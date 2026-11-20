@@ -25,6 +25,7 @@ import {
   downloadTemplate,
 } from '../lib/csv'
 import { buildSecurityLogCsv } from '../lib/securityLog'
+import { EVENTS } from '../data/destinations'
 import { securityPosture, isPrivilegedRole, type PostureCheck } from '../lib/security'
 import { Badge, Button, Card, CardHeader, Field, Modal, Notice, PageHeader, inputClass, selectClass } from '../components/ui'
 
@@ -297,6 +298,42 @@ export function SettingsPage() {
               ))}
             </ul>
           </Card>
+
+          <Card>
+            <CardHeader title="Market signals" description="External inputs that drive demand and procurement timing" />
+            <div className="space-y-2.5 px-5 py-4 text-xs">
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-ink-muted">Seasonality index</span>
+                <span className="font-medium text-ink">Destination monthly weights</span>
+              </div>
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-ink-muted">Event calendar</span>
+                <span className="font-medium text-ink">{EVENTS.length} tracked events</span>
+              </div>
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-ink-muted">Demand growth signal</span>
+                <span className="font-medium text-ink">4-week vs prior 4-week</span>
+              </div>
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-ink-muted">Search conversion signal</span>
+                <span className="font-medium text-ink">Look-to-book ratio</span>
+              </div>
+              <div className="border-t border-line pt-2.5">
+                <p className="text-2xs leading-relaxed text-ink-muted">
+                  Live deployments should ingest flight search trends, fare indices and event feeds to refresh these signals
+                  daily. The current dataset blends them into the forecast baseline.
+                </p>
+              </div>
+              <ul className="max-h-32 divide-y divide-line overflow-y-auto rounded-lg border border-line text-2xs">
+                {EVENTS.slice(0, 6).map((event) => (
+                  <li key={event.id} className="flex items-center justify-between gap-2 px-3 py-1.5">
+                    <span className="truncate text-ink">{event.label}</span>
+                    <span className="shrink-0 text-ink-muted">{event.date.slice(0, 7)} · ×{event.uplift.toFixed(2)}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Card>
         </div>
 
         <div className="space-y-4">
@@ -455,7 +492,7 @@ export function SettingsPage() {
                 { label: 'Contract terms', value: 'Sample release windows', ok: true },
                 { label: 'Live supplier APIs', value: 'Awaiting integration', ok: false },
                 { label: 'Booking engine / execution', value: 'Out of scope', ok: false },
-                { label: 'Event calendar', value: 'Sample calendar', ok: true },
+                { label: 'External market signals', value: 'Sample calendar (events, seasonality)', ok: true },
               ].map((row) => (
                 <li key={row.label} className="flex items-center justify-between gap-3 px-5 py-2.5 text-xs">
                   <span className="text-ink-muted">{row.label}</span>

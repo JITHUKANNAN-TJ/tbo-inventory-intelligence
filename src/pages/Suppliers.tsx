@@ -45,7 +45,7 @@ export function SuppliersPage() {
   return (
     <div>
       <PageHeader
-        eyebrow="Suppliers"
+        eyebrow="Supplier integration"
         title="Supplier intelligence"
         description="Compare rate, reliability, flexibility and response time before choosing where to source inventory."
       />
