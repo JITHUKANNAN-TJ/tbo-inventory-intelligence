@@ -161,7 +161,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [decisions, setDecisions] = useState<Record<string, Decision>>(() => readDecisionStore())
   const [audit, setAudit] = useState<AuditVerification>(EMPTY_AUDIT)
   const [profile, setProfileState] = useState<Profile>(() =>
-    sanitizeProfile(readJson<unknown>(KEYS.profile, null), { name: 'Jithu Menon', role: 'Approver' }),
+    sanitizeProfile(readJson<unknown>(KEYS.profile, null), { name: 'Sarveshwaran', role: 'Approver' }),
   )
   const [imported, setImported] = useState<Opportunity[]>(() => {
     const parsed = readJson<unknown>(KEYS.imported, [])
