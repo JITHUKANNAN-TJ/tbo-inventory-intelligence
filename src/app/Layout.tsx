@@ -135,7 +135,7 @@ function Topbar({ onMenu }: { onMenu: () => void }) {
             <option value="INR">INR</option>
             <option value="USD">USD</option>
           </select>
-          <span className="hidden text-2xs text-ink-muted xl:inline">Data as of {dataset.generatedAt.slice(0, 10)}</span>
+          <span className="hidden text-2xs leading-none text-ink-muted xl:inline">Data as of {dataset.generatedAt.slice(0, 10)}</span>
         </div>
       </div>
 
@@ -144,16 +144,16 @@ function Topbar({ onMenu }: { onMenu: () => void }) {
           <button
             type="button"
             onClick={unlockSession}
-            className="inline-flex items-center gap-1.5 rounded-full border border-warn/30 bg-warn-soft px-2.5 py-1 text-2xs font-medium text-warn-dark"
+            className="inline-flex h-8 items-center gap-1.5 rounded-full border border-warn/30 bg-warn-soft px-2.5 text-2xs font-medium text-warn-dark"
             title="Unlock the session to restore privileged actions"
           >
             <Lock className="h-3 w-3" /> Session locked
           </button>
         ) : null}
-        <Badge tone="brand" className="hidden xl:inline-flex">
+        <Badge tone="brand" className="hidden h-7 items-center xl:inline-flex">
           <ShieldCheck className="h-3 w-3" /> Approval required
         </Badge>
-        <Button variant="ghost" size="sm" onClick={() => navigate('/settings')} className="hidden sm:inline-flex">
+        <Button variant="ghost" size="sm" onClick={() => navigate('/settings')} className="hidden h-8 sm:inline-flex">
           <Settings className="h-3.5 w-3.5" /> Settings
         </Button>
         <button
