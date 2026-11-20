@@ -119,7 +119,7 @@ function Topbar({ onMenu }: { onMenu: () => void }) {
           <select
             value={plan.horizonWeeks}
             onChange={(event) => setPlan({ horizonWeeks: Number(event.target.value) })}
-            className={`${selectClass} h-7 py-0 text-2xs`}
+            className="h-7 cursor-pointer rounded-lg border border-line bg-white px-2 pr-8 text-2xs text-ink focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/15"
             aria-label="Planning horizon in weeks"
           >
             <option value={8}>Next 8 weeks</option>
@@ -129,7 +129,7 @@ function Topbar({ onMenu }: { onMenu: () => void }) {
           <select
             value={plan.currency}
             onChange={(event) => setPlan({ currency: event.target.value as 'INR' | 'USD' })}
-            className={`${selectClass} h-7 py-0 text-2xs`}
+            className="h-7 cursor-pointer rounded-lg border border-line bg-white px-2 pr-8 text-2xs text-ink focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/15"
             aria-label="Display currency"
           >
             <option value="INR">INR</option>
@@ -159,7 +159,7 @@ function Topbar({ onMenu }: { onMenu: () => void }) {
         <button
           type="button"
           onClick={() => setMenuOpen((open) => !open)}
-          className="flex items-center gap-2 rounded-lg border border-line bg-white py-1 pl-1 pr-2.5"
+          className="flex h-9 items-center gap-2 rounded-lg border border-line bg-white py-1 pl-1 pr-2.5"
         >
           <span className="flex h-6 w-6 items-center justify-center rounded-md bg-ink text-2xs font-semibold text-white">
             {initials(profile.name)}
