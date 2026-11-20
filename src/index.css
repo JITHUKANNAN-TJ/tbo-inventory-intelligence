@@ -1,0 +1,200 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --grade-brand: 59, 91, 219;
+  --grade-success: 15, 139, 126;
+  --grade-warning: 178, 106, 0;
+  --grade-risk: 198, 71, 71;
+  --grade-ink: 22, 32, 44;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes grow-x {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-canvas text-ink;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    background-image:
+      radial-gradient(900px 520px at 102% -12%, rgba(59, 91, 219, 0.08), transparent 62%),
+      radial-gradient(760px 460px at -12% 8%, rgba(15, 139, 126, 0.05), transparent 58%),
+      linear-gradient(180deg, #fafbfe 0%, #f5f7fb 45%, #f1f4f9 100%);
+    background-attachment: fixed;
+  }
+
+  ::selection {
+    background: rgba(59, 91, 219, 0.18);
+  }
+
+  input[type='number']::-webkit-outer-spin-button,
+  input[type='number']::-webkit-inner-spin-button {
+    margin: 0;
+    -webkit-appearance: none;
+  }
+  input[type='number'] {
+    -moz-appearance: textfield;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #d3dbea;
+    border: 3px solid #f5f7fb;
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #bcc7d9;
+  }
+}
+
+@layer components {
+  .surface {
+    @apply rounded-card border border-line bg-surface shadow-card transition-[border-color,box-shadow,transform] duration-300 ease-out;
+    background-image: linear-gradient(160deg, #ffffff 0%, #fcfdff 58%, #f7f9fc 100%);
+  }
+
+  .surface-hover:hover {
+    @apply -translate-y-px border-brand/25;
+    box-shadow: 0 12px 28px -16px rgba(22, 32, 44, 0.22);
+  }
+
+  /* Tonal grading keeps each KPI in the same palette while giving it a distinct temperature. */
+  .grade-default {
+    border-top-color: rgba(var(--grade-ink), 0.1);
+    background-image: linear-gradient(140deg, #ffffff 0%, #ffffff 52%, #f7f9fc 100%);
+  }
+
+  .grade-brand {
+    border-top-color: rgba(var(--grade-brand), 0.34);
+    background-image: linear-gradient(140deg, #ffffff 0%, #ffffff 44%, rgba(238, 242, 255, 0.85) 100%);
+  }
+
+  .grade-success {
+    border-top-color: rgba(var(--grade-success), 0.32);
+    background-image: linear-gradient(140deg, #ffffff 0%, #ffffff 44%, rgba(231, 246, 243, 0.85) 100%);
+  }
+
+  .grade-warning {
+    border-top-color: rgba(var(--grade-warning), 0.34);
+    background-image: linear-gradient(140deg, #ffffff 0%, #ffffff 44%, rgba(253, 242, 226, 0.85) 100%);
+  }
+
+  .grade-danger {
+    border-top-color: rgba(var(--grade-risk), 0.32);
+    background-image: linear-gradient(140deg, #ffffff 0%, #ffffff 44%, rgba(252, 237, 237, 0.85) 100%);
+  }
+
+  .data-row {
+    transition: background-color 180ms ease, box-shadow 180ms ease;
+  }
+
+  .data-row:hover {
+    background-image: linear-gradient(90deg, rgba(var(--grade-brand), 0.045), rgba(var(--grade-brand), 0) 58%);
+  }
+
+  .data-row:hover td:first-child {
+    box-shadow: inset 3px 0 0 rgba(var(--grade-brand), 0.55);
+  }
+}
+
+@layer utilities {
+  .animate-fade-up {
+    animation: fade-up 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .animate-fade-in {
+    animation: fade-in 0.35s ease-out both;
+  }
+  .animate-scale-in {
+    animation: scale-in 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .animate-slide-in {
+    animation: slide-in-right 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .animate-grow-x {
+    transform-origin: left center;
+    animation: grow-x 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .text-gradient-ink {
+    background-image: linear-gradient(100deg, #16202c 18%, #3e5067);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
