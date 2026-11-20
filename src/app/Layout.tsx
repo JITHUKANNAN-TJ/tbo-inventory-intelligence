@@ -115,7 +115,7 @@ function Topbar({ onMenu }: { onMenu: () => void }) {
           <Menu className="h-4 w-4" />
         </button>
         <div className="hidden items-center gap-2 md:flex">
-          <span className="text-2xs font-medium uppercase tracking-[0.08em] text-ink-soft">Planning window</span>
+          <span className="text-2xs font-medium uppercase tracking-[0.08em] text-ink-muted">Planning window</span>
           <select
             value={plan.horizonWeeks}
             onChange={(event) => setPlan({ horizonWeeks: Number(event.target.value) })}
