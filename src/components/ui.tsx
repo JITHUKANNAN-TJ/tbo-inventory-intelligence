@@ -367,6 +367,7 @@ export function Modal({
 
   if (!open) return null
 
+  const titleId = 'modal-title'
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div className="animate-fade-in absolute inset-0 bg-ink/40 backdrop-blur-[2px]" onClick={onClose} aria-hidden />
@@ -374,10 +375,11 @@ export function Modal({
         className={clsx('animate-scale-in relative w-full rounded-xl border border-line bg-white shadow-[0_24px_70px_-20px_rgba(22,32,44,0.4)]', width)}
         role="dialog"
         aria-modal
+        aria-labelledby={titleId}
       >
         <div className="flex items-start justify-between gap-4 border-b border-line px-5 py-4">
           <div>
-            <h2 className="text-[15px] font-semibold text-ink">{title}</h2>
+            <h2 id={titleId} className="text-[15px] font-semibold text-ink">{title}</h2>
             {description ? <p className="mt-0.5 text-xs text-ink-muted">{description}</p> : null}
           </div>
           <button

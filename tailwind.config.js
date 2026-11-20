@@ -9,8 +9,8 @@ export default {
         ink: {
           DEFAULT: '#16202C',
           deep: '#0C1520',
-          muted: '#64748B',
-          soft: '#94A3B8',
+          muted: '#475569',
+          soft: '#64748B',
         },
         line: '#E2E8F0',
         brand: {

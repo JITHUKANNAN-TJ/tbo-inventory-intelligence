@@ -198,10 +198,11 @@ function Toasts() {
   const { toasts, dismissToast } = useApp()
   if (toasts.length === 0) return null
   return (
-    <div className="fixed bottom-4 right-4 z-[60] flex w-80 flex-col gap-2">
+    <div className="fixed bottom-4 right-4 z-[60] flex w-80 flex-col gap-2" role="region" aria-live="polite" aria-label="Notifications">
       {toasts.map((toast, index) => (
         <div
           key={toast.id}
+          role="alert"
           className={clsx(
             'animate-slide-in rounded-lg border bg-white px-3.5 py-3 shadow-[0_16px_40px_-16px_rgba(22,32,44,0.35)]',
             toast.tone === 'success' && 'border-ok/30',
@@ -234,6 +235,12 @@ export function Layout({ route, children }: { route: string; children: ReactNode
 
   return (
     <div className="flex min-h-screen bg-canvas">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-lg focus:bg-brand focus:px-3 focus:py-2 focus:text-sm focus:font-medium focus:text-white focus:shadow-pop"
+      >
+        Skip to main content
+      </a>
       <div className="hidden lg:block">
         <div className="sticky top-0 h-screen">
           <Sidebar route={route} onNavigate={() => undefined} />
@@ -251,11 +258,18 @@ export function Layout({ route, children }: { route: string; children: ReactNode
 
       <div className="flex min-w-0 flex-1 flex-col">
         <Topbar onMenu={() => setMobileOpen(true)} />
-        <main key={route} className="animate-fade-in mx-auto w-full max-w-[1400px] flex-1 px-4 py-5 lg:px-6 lg:py-6">
+        <main id="main-content" key={route} className="animate-fade-in mx-auto w-full max-w-[1400px] flex-1 px-4 py-5 lg:px-6 lg:py-6">
           {children}
         </main>
         <footer className="border-t border-line bg-white/40 px-6 py-4 text-2xs text-ink-muted">
-          Synthetic dataset for demonstration · All commitments require human approval · No purchases are executed.
+          <div className="mx-auto flex max-w-[1400px] flex-wrap items-center justify-between gap-2">
+            <span>© {new Date().getFullYear()} TBO Inventory Intelligence · Decision support only · No purchases are executed.</span>
+            <span className="flex flex-wrap gap-3">
+              <a className="hover:text-ink" href="#/overview">Overview</a>
+              <a className="hover:text-ink" href="#/settings">Settings</a>
+              <a className="hover:text-ink" href="https://github.com/JITHUKANNAN-TJ/tbo-inventory-intelligence" target="_blank" rel="noreferrer">Source</a>
+            </span>
+          </div>
         </footer>
       </div>
       <Toasts />
